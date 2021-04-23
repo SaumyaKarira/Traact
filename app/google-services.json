@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1070697308019",
+    "project_id": "traact-b5c06",
+    "storage_bucket": "traact-b5c06.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1070697308019:android:aec4d94a38345d911d6f06",
+        "android_client_info": {
+          "package_name": "com.example.traact"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1070697308019-c0urlhu68flan91vmjtr493e3v81u2ek.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA11MGrlKrZBWfAQ0iv3tTyMx7pkGV3gOk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1070697308019-c0urlhu68flan91vmjtr493e3v81u2ek.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
