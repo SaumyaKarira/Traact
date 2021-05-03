@@ -3,6 +3,7 @@ package com.example.traact;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -21,6 +22,7 @@ public class MainActivity extends AppCompatActivity {
     ImageView boxImage;
     DatabaseReference databaseReference;
     String status;
+    MediaPlayer obj;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
                 if(status.equals("0")){
                     object.setText("Object Present");
                     shakeBox();
+                    voiceMessage();
                 }
             }
 
@@ -48,8 +51,18 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    public void onBackPressed() {
+        finish();
+    }
+
     private void shakeBox() {
         Animation shake = AnimationUtils.loadAnimation(this, R.anim.shake_animation);
         boxImage.setAnimation(shake);
+    }
+
+    private void voiceMessage() {
+        obj = MediaPlayer.create(MainActivity.this,R.raw.object);
+        obj.start();
     }
 }
