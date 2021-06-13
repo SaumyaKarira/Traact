@@ -3,8 +3,13 @@ package com.example.traact;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.media.MediaPlayer;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.VibrationEffect;
+import android.os.Vibrator;
+import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
@@ -23,6 +28,8 @@ public class MainActivity extends AppCompatActivity {
     DatabaseReference databaseReference;
     String status;
     MediaPlayer obj;
+    Vibrator vibrator;
+    Animation shake;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,7 +47,16 @@ public class MainActivity extends AppCompatActivity {
                 if(status.equals("0")){
                     object.setText("Object Present");
                     shakeBox();
+                    vibratePhone();
                     voiceMessage();
+
+                }
+                if(status.equals("1")){
+                    object.setText("Object Not Present");
+                    obj.stop();
+                    stopVibrate();
+                    stopShake();
+
                 }
             }
 
@@ -51,18 +67,41 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    @Override
-    public void onBackPressed() {
-        finish();
+    private void stopShake() {
+        shake.setRepeatCount(0);
+        shake.cancel();
     }
 
+    private void vibratePhone() {
+        vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+        long pattern[] = {60,120,180,240,300,360,420,480};
+        // Vibrate for 500 milliseconds
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            vibrator.vibrate(VibrationEffect.createOneShot(500, VibrationEffect.DEFAULT_AMPLITUDE));
+            //v.vibrate(pattern , 5);
+        } else {
+            //deprecated in API 26
+            vibrator.vibrate(pattern, 1);
+        }
+
+    }
+
+    public void stopVibrate() {
+        vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+        vibrator.cancel();
+    }
+
+
     private void shakeBox() {
-        Animation shake = AnimationUtils.loadAnimation(this, R.anim.shake_animation);
+        shake = AnimationUtils.loadAnimation(this, R.anim.shake_animation);
         boxImage.setAnimation(shake);
     }
 
+
+
     private void voiceMessage() {
         obj = MediaPlayer.create(MainActivity.this,R.raw.object);
+        obj.setLooping(true) ;
         obj.start();
     }
 }
